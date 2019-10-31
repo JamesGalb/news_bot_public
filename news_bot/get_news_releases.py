@@ -9,9 +9,6 @@ import pymysql
 #Query DB for URL list, for spiders to check before adding items to Database
 connection = pymysql.connect('localhost', 'bot', 'password', 'trump_news_bot')
 cursor = connection.cursor()
-url_list_sql = "SELECT news_url FROM news"
-cursor.execute(url_list_sql)
-current_url_list = cursor.fetchall()
 
 
 #Run Spiders - Adds to Database in Pipeline
