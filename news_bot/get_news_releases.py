@@ -27,7 +27,7 @@ if should_post_data and len(data_to_post) > 0:
     #Logs into Reddit
     reddit = praw.Reddit(client_id='6DmZoP3phe8vYQ',
                            client_secret='UMVs6DYaXEgwBWOWiWWSCzliHAA',
-                           password='Kn0ck3rs',
+                           password='********',
                            user_agent='PartyOfLions',
                            username='PartyOfLions') #reddit data in theses parentheses
                            
