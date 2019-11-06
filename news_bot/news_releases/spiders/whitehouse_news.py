@@ -14,6 +14,9 @@ class WhitehouseNewsSpider(scrapy.Spider):
             item = NewsRelease()
             item['link'] = element.css('div h2 a::attr(href)').extract_first()
             item['title'] = element.css('div h2 a::text').extract_first()
+            item['source_id'] = 'WHN'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items
 

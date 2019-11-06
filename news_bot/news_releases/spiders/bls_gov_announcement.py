@@ -12,5 +12,8 @@ class BLSGovAnnouncementSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://stats.bls.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'BLS'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

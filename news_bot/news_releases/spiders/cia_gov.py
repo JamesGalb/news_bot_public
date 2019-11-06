@@ -13,5 +13,8 @@ class CIAGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('span.topicDescription::text').extract_first()
             item['link'] = "https://www.cia.gov" + element.css('span.summary a::attr(href)').extract_first()
+            item['source_id'] = 'CIA'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

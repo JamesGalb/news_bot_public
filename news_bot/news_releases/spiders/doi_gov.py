@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from scrapy.spiders import XMLFeedSpider
 from news_releases.items import NewsRelease
 
-class DOIGovSpider(scrapy.Spider):
+class DOIGovSpider(XMLFeedSpider):
     name = 'doi_gov'
-    custom_settings = {'EXPECTED':6}
-    start_urls = ['https://www.doi.gov/pressreleases',
-                  'https://www.doi.gov/mediaadvisories']
+    start_urls = ['https://www.doi.gov/feeds/list/11143/rss.xml',
+                  'https://www.doi.gov/feeds/list/11142/rss.xml']
+    iterator = 'iternodes'
+    itertag = 'item'
 
-    def parse(self, response):
-        items = []
-        for element in response.css('div.node-title a')[:self.settings.attributes['SCRAPE_LIMIT'].value]:
-            item = NewsRelease()
-            item['title'] = element.css('::text').extract_first()
-            item['link'] = "https://www.doi.gov" + element.css('::attr(href)').extract_first()
-            items.append(item)
-        return []
+    def parse_node(self, response, node):
+        item = NewsRelease()
+        item['title'] = node.xpath('title/text()').get()
+        item['link'] = node.xpath('link/text()').get()
+        item['source_id'] = 'DOI'
+        item['summary'] = None
+        item['content'] = None
+        return item

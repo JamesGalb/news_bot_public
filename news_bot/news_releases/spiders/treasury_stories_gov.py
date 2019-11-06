@@ -12,5 +12,8 @@ class TreasuryStoriesGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://home.treasury.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'TREA'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

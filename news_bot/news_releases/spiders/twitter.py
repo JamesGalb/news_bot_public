@@ -4,7 +4,6 @@ from news_releases.items import NewsRelease
 
 class TwitterSpider(scrapy.Spider):
     name = 'twitter'
-    custom_settings = {'EXPECTED':9}
     start_urls = ['https://twitter.com/teamtrump',
                   'https://twitter.com/realDonaldTrump',
                   'https://twitter.com/WhiteHouse']
@@ -14,6 +13,9 @@ class TwitterSpider(scrapy.Spider):
         for element in response.css('ol#stream-items-id li div.tweet')[:self.settings.attributes['SCRAPE_LIMIT'].value]:
             item = NewsRelease()
             item['link'] = 'https://www.twitter.com' + element.css('::attr(data-permalink-path)').extract_first()
+            item['source_id'] = 'TWR'
+            item['summary'] = None
+            item['content'] = None
             request = scrapy.Request(item['link'], callback=self.parse_retweet)
             request.meta['item'] = item
             items.append(request)

@@ -6,7 +6,8 @@ class EnergyGovSpider(scrapy.Spider):
     name = 'energy_gov'
     start_urls = ['https://www.energy.gov/listings/energy-news',
                   'https://www.energy.gov/listings/energy-remarks',
-                  'https://www.energy.gov/listings/media-advisories']
+                  'https://www.energy.gov/listings/media-advisories',
+                  'https://www.energy.gov/fe/listings/fe-press-releases-and-techlines']
 
     def parse(self, response):
         items = []
@@ -14,5 +15,8 @@ class EnergyGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://www.energy.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'DOE'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

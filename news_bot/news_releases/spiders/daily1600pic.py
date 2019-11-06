@@ -13,5 +13,8 @@ class Daily1600picSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('figcaption.image__caption::text').extract_first()
             item['link'] = element.css('div.image__download a::attr(href)').extract_first()
+            item['source_id'] = '1600'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

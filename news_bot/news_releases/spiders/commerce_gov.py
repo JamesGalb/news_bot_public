@@ -15,5 +15,8 @@ class CommerceGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('span::text').extract_first()
             item['link'] = "https://www.commerce.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'COM'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

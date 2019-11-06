@@ -2,18 +2,15 @@
 import scrapy
 from news_releases.items import NewsRelease
 
-class GOPSpider(scrapy.Spider):
-    name = 'gop_spider'
-    start_urls = ['https://www.gop.com/news/']
+class GOPResearchSpider(scrapy.Spider):
+    name = 'gop_research'
+    start_urls = ['https://www.gop.com/research/']
 
     def parse(self, response):
         items = []
-        for element in response.css('div.news-entry-text h2 a')[:self.settings.attributes['SCRAPE_LIMIT'].value]:
+        for element in response.css('a.ng-binding')[:self.settings.attributes['SCRAPE_LIMIT'].value]:
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://www.gop.com" + element.css('::attr(href)').extract_first()
-            item['source_id'] = 'GOP'
-            item['summary'] = None
-            item['content'] = None
             items.append(item)
         return items

@@ -14,5 +14,8 @@ class DHSGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://www.dhs.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'DHS'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

@@ -4,7 +4,6 @@ from news_releases.items import NewsRelease
 
 class JusticeGovSpider(scrapy.Spider):
     name = 'justice_gov'
-    custom_settings = {'EXPECTED': 6}
     start_urls = ['https://www.justice.gov/news',
                   'https://www.justice.gov/videos']    
 
@@ -14,5 +13,8 @@ class JusticeGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://www.justice.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'DOJ'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

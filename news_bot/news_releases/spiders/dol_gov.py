@@ -10,9 +10,10 @@ class DOLGovSpider(XMLFeedSpider):
     itertag = 'item'
 
     def parse_node(self, response, node):
-        items = []
         item = NewsRelease()
         item['title'] = node.xpath('title/text()').get()
         item['link'] = node.xpath('link/text()').get()
-        items.append(item)
+        item['source_id'] = 'DOL'
+        item['summary'] = None
+        item['content'] = None
         return item

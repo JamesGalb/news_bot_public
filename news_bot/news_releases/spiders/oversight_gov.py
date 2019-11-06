@@ -4,7 +4,6 @@ from news_releases.items import NewsRelease
 
 class OversightGovSpider(scrapy.Spider):
     name = 'oversight_gov'
-    custom_settings = {'EXPECTED': 3}
     start_urls = ['https://oversight.gov/reports']    
 
     def parse(self, response):
@@ -13,5 +12,8 @@ class OversightGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://oversight.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'OIG'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

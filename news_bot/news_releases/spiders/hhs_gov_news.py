@@ -12,5 +12,8 @@ class HHSGovNewsSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://www.hhs.gov" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'HHS'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items

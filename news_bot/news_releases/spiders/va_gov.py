@@ -12,5 +12,8 @@ class VAGovSpider(scrapy.Spider):
             item = NewsRelease()
             item['title'] = element.css('::text').extract_first()
             item['link'] = "https://www.va.gov/opa/pressrel/" + element.css('::attr(href)').extract_first()
+            item['source_id'] = 'VA'
+            item['summary'] = None
+            item['content'] = None
             items.append(item)
         return items
